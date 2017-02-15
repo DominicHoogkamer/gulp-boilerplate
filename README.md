@@ -23,3 +23,4 @@ $ gulp
   - Adding more functionality for livereload
   - ES6 transpiler
   - A Version for React and Angular
+  - Lots of comments to understand what is really happening
