@@ -24,3 +24,4 @@ $ gulp
   - ES6 transpiler
   - A Version for React and Angular
   - Lots of comments to understand what is really happening
+  - Also there is a webpack beginners boilerplate coming in the near future
