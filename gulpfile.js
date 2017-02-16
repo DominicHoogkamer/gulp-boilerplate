@@ -34,7 +34,7 @@ gulp.task('connect', function () {
         port: config.port,
         base: config.devBaseUrl,
         livereload: true
-    })
+    });
 });
 
 gulp.task('open', ['connect'], function(){
@@ -45,13 +45,13 @@ gulp.task('open', ['connect'], function(){
         }));
 });
 
-gulp.task('html', function(){
+gulp.task('html', function (){
     gulp.src(config.paths.html)
         .pipe(gulp.dest(config.paths.dist))
         .pipe(connect.reload());
 });
 
-gulp.task('js', function() {
+gulp.task('js', function () {
     browserify(config.paths.mainJs)
         .transform(reactify)
         .bundle()
@@ -61,22 +61,23 @@ gulp.task('js', function() {
         .pipe(connect.reload());
 });
 
-gulp.task('css', function() {
+gulp.task('css', function () {
 	gulp.src(config.paths.css)
         .pipe(concat('bundle.css'))
-		.pipe(gulp.dest(config.paths.dist + '/css'));
+		.pipe(gulp.dest(config.paths.dist + '/css'))
+        .pipe(connect.reload());
 });
 
-gulp.task('lint', function() {
+gulp.task('lint', function () {
 	return gulp.src(config.paths.js)
-		.pipe(lint({configFile: 'eslint.config.json'}))
-		.pipe(lint.format());
+		.pipe(lint())
+		.pipe(lint.format())
+        .pipe(lint.failAfterError());
 });
 
-gulp.task('watch', function(){
+gulp.task('watch', function (){
     gulp.watch(config.paths.html, ['html']);
     gulp.watch(config.paths.js, ['js', 'lint']);
-    gulp.watch(config.paths.css, ['css']);
 });
 
 gulp.task('default', ['html', 'js', 'css', 'lint', 'open', 'watch']);
